@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import TestUtils from 'react-addons-test-utils';
 import Icon from '../../src/components/Icon';
 
-describe('the Icon component', function() {
+describe('<Icon />', function() {
 
 	beforeEach(function() {
 		this.renderer = TestUtils.createRenderer();
