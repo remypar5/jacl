@@ -2,51 +2,46 @@ import React from 'react';
 import {expect} from 'chai';
 import TestUtils from 'react-addons-test-utils';
 import Icon from '../../src/components/Icon';
+import {
+	renderComponent,
+	shallowRenderComponent
+} from '../test_utils';
 
-describe('<Icon />', function() {
+describe('test/components/Icon_spec.jsx', function() {
 
-	beforeEach(function() {
-		this.renderer = TestUtils.createRenderer();
+	it('is a normal FontAwesome icon by default', function() {
+		const icon = shallowRenderComponent(
+			<Icon icon="plus" title="Add more" />
+		);
+
+		expect(icon.type).to.equal('i');
+		expect(icon.props.className.indexOf('fa') > -1).to.be.true;
+		expect(icon.props.className.indexOf('fa-plus') > -1).to.be.true;
+		expect(icon.props.className.indexOf('fa-fw') === -1).to.be.true;
 	});
 
-	describe('rendering', function() {
+	it('is decorative', function() {
+		const icon = shallowRenderComponent(
+			<Icon icon="plus" title="Add more" />
+		);
 
-		beforeEach(function() {
-			const icon = <Icon icon="plus" title="Add more" />;
+		expect(icon.props['aria-hidden']).to.be.true;
+	});
 
-			this.renderer.render(icon);
-			this.DOM = this.renderer.getRenderOutput();
-		});
+	it('accepts additional attributes', function() {
+		const icon = shallowRenderComponent(
+			<Icon icon="plus" title="Add more" />
+		);
 
-		it('is a normal FontAwesome icon by default', function() {
-			const icon = this.DOM;
+		expect(icon.props.title).to.equal('Add more');
+	});
 
-			expect(icon.type).to.equal('i');
-			expect(icon.props.className.indexOf('fa') > -1).to.be.true;
-			expect(icon.props.className.indexOf('fa-plus') > -1).to.be.true;
-			expect(icon.props.className.indexOf('fa-fw') === -1).to.be.true;
-		});
+	it('accepts additional classNames', function() {
+		const icon = shallowRenderComponent(
+			<Icon icon="plus" className="fa-fw fa-2x" />
+		);
 
-		it('is decorative', function() {
-			expect(this.DOM.props['aria-hidden']).to.be.true;
-		});
-
-		it('accepts additional attributes', function() {
-			const icon = this.DOM;
-
-			expect(icon.props.title).to.equal('Add more');
-		});
-
-		it('accepts additional classNames', function() {
-			const icon = <Icon icon="plus" className="fa-fw fa-2x" />;
-			const renderer = TestUtils.createRenderer();
-
-			renderer.render(icon);
-
-			const DOM = renderer.getRenderOutput();
-
-			expect(DOM.props.className.indexOf('fa-fw') > -1).to.be.true;
-			expect(DOM.props.className.indexOf('fa-2x') > -1).to.be.true;
-		});
+		expect(icon.props.className.indexOf('fa-fw') > -1).to.be.true;
+		expect(icon.props.className.indexOf('fa-2x') > -1).to.be.true;
 	});
 });
