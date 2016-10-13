@@ -30,9 +30,11 @@ describe('test/components/Icon_spec.jsx', function() {
 
 	it('accepts additional attributes', function() {
 		const icon = shallowRenderComponent(
-			<Icon icon="plus" title="Add more" />
+			<Icon libraryPrefix='glyphicons' icon="plus" title="Add more" />
 		);
 
+		expect(icon.props.className.indexOf('glyphicons') > -1).to.be.true;
+		expect(icon.props.className.indexOf('glyphicons-plus') > -1).to.be.true;
 		expect(icon.props.title).to.equal('Add more');
 	});
 
