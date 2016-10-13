@@ -4,6 +4,15 @@ import _ from 'lodash';
 
 export default React.createClass({
 
+	propTypes: {
+		items: React.PropTypes.oneOfType([
+			React.PropTypes.array,
+			React.PropTypes.object,
+		]).isRequired,
+		element: React.PropTypes.string,
+		generateItem: React.PropTypes.func,
+	},
+
 	getDefaultProps() {
 		return {
 			element: 'ul'
