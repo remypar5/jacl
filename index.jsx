@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import List from './src/components/List';
+import Table from './src/components/Table';
 import cx from 'classnames';
 
 const classes = ['warning', 'info', 'success', 'default'];
 
-const ListContainer = React.createClass({
+const TableContainer = React.createClass({
 	generateItem(item, key, ctx) {
 		const className = cx('list-group-item', 'list-group-item-' + classes[key % classes.length]);
 		return <div key={key} className={className}>item: {item}</div>;
@@ -13,12 +13,12 @@ const ListContainer = React.createClass({
 
 	render() {
 		return (
-			<List {...this.props} generateItem={this.generateItem} />
+			<Table items={[{id: 1, name: 'John Smith'}, {id: 2, name: 'Jane Smith'}]} />
 		);
 	}
 });
 
 ReactDOM.render(
-	<ListContainer element="section" items={['These', 'are', 'just', 'some', 'items', 'to', 'render',]} />,
+	<TableContainer />,
 	document.querySelector('#app')
 );
