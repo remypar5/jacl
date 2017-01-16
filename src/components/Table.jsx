@@ -57,7 +57,7 @@ export default React.createClass({
 			<tr key={`row-${modelId}`} className="table__row">
 				{ Utils.map(columns, (column, key) => {
 					return (
-						<td key={`cell-${modelId}-${key}`} className="table__cell table__cell--{key}">
+						<td key={`cell-${modelId}-${key}`} className={`table__cell table__cell--${key}`}>
 							{ column.transform ?
 								column.transform(key, model, columns) :
 								this.getDisplayValue(key, model, columns) }
