@@ -9,6 +9,7 @@ const Container = React.createClass({
 	render() {
 		return (
 			// Insert component here
+			<h1>Insert component here</h1>
 		);
 	}
 });
