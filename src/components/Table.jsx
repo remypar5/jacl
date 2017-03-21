@@ -1,31 +1,13 @@
 import React from 'react';
-import List from './List';
+import JaclList from './List';
 import * as Utils from '../utils';
 
-export default React.createClass({
+export default class JaclTable extends React.PureComponent {
 
-	_columnsConfig: undefined,
-
-	propTypes: {
-		items: React.PropTypes.arrayOf(			// items: [{foo: 'Foo1', bar: 'Bar1'}, {foo: 'Foo2', bar: 'Bar2}]
-			React.PropTypes.object
-		).isRequired,
-		columns: React.PropTypes.oneOfType([
-			React.PropTypes.string,				// CSV e.g. 'foo,bar'
-			React.PropTypes.arrayOf(			// e.g. ['foo', 'bar']
-				React.PropTypes.string
-			),
-			React.PropTypes.objectOf(			// e.g. { foo: 'Foo label', bar: 'Bar label' }
-				React.PropTypes.string
-			),
-			React.PropTypes.objectOf(			// e.g. {foo: {label: 'Foo label'}, {bar: {label: 'Bar label', formatter: formatFoo}}}
-				React.PropTypes.shape({
-					label: React.PropTypes.string.isRequired,
-					transform: React.PropTypes.func,
-				})
-			),
-		]),
-	},
+	constructor(props) {
+		super(props);
+		this._columnsConfig = undefined;
+	};
 
 	render() {
 		const items = this.props.items;
@@ -33,10 +15,13 @@ export default React.createClass({
 		return (
 			<table className="table">
 				<thead className="table__head">{this.renderTableHead()}</thead>
-				<List element="tbody" className="table__body" items={items} generateItem={this.renderTableRow} />
+				<JaclList element="tbody"
+						  className="table__body"
+						  items={items}
+						  generateItem={this.renderTableRow.bind(this)} />
 			</table>
 		);
-	},
+	};
 
 	renderTableHead() {
 		const columns = this.getColumnsConfig();
@@ -48,7 +33,7 @@ export default React.createClass({
 				}) }
 			</tr>
 		);
-	},
+	};
 
 	renderTableRow(model, modelId) {
 		const columns = this.getColumnsConfig();
@@ -66,11 +51,11 @@ export default React.createClass({
 				}) }
 			</tr>
 		);
-	},
+	};
 
 	getDisplayValue(columnKey, model, columns) {
 		return model[columnKey];
-	},
+	};
 
 	getColumnsConfig(forceReconfig = false) {
 		if (this._columnsConfig && forceReconfig !== true) {
@@ -120,6 +105,27 @@ export default React.createClass({
 		}));
 
 		return this._columnsConfig = columns;
-	},
+	};
 
-});
+};
+
+JaclTable.propTypes = {
+	items: React.PropTypes.arrayOf(			// items: [{foo: 'Foo1', bar: 'Bar1'}, {foo: 'Foo2', bar: 'Bar2}]
+		React.PropTypes.object
+	).isRequired,
+	columns: React.PropTypes.oneOfType([
+		React.PropTypes.string,				// CSV e.g. 'foo,bar'
+		React.PropTypes.arrayOf(			// e.g. ['foo', 'bar']
+			React.PropTypes.string
+		),
+		React.PropTypes.objectOf(			// e.g. { foo: 'Foo label', bar: 'Bar label' }
+			React.PropTypes.string
+		),
+		React.PropTypes.objectOf(			// e.g. {foo: {label: 'Foo label'}, {bar: {label: 'Bar label', formatter: formatFoo}}}
+			React.PropTypes.shape({
+				label: React.PropTypes.string.isRequired,
+				transform: React.PropTypes.func,
+			})
+		),
+	]),
+};

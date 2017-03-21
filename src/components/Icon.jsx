@@ -1,20 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-export default React.createClass({
-
-	propTypes: {
-		icon: React.PropTypes.string.isRequired,
-		className: React.PropTypes.string,
-		libraryPrefix: React.PropTypes.string,
-	},
-
-	getDefaultProps() {
-		return {
-			'libraryPrefix': 'fa',
-			'aria-hidden': true
-		};
-	},
+export default class JaclIcon extends React.PureComponent {
 
 	render() {
 		const props = Object.assign({}, this.props);
@@ -28,5 +15,17 @@ export default React.createClass({
 		return (
 			<i {...props} />
 		);
-	},
-});
+	};
+
+};
+
+JaclIcon.propTypes = {
+	icon: React.PropTypes.string.isRequired,
+	className: React.PropTypes.string,
+	libraryPrefix: React.PropTypes.string,
+};
+
+JaclIcon.defaultProps = {
+	'libraryPrefix': 'fa',
+	'aria-hidden': true
+};
