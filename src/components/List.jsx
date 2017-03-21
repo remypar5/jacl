@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import _ from 'lodash';
 
-export default class JaclList extends React.Component {
+export default class JaclList extends React.PureComponent {
 
 	render() {
 		const props = Object.assign({
